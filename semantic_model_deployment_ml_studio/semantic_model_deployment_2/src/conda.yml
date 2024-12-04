@@ -1,0 +1,16 @@
+channels:
+  - anaconda
+  - conda-forge
+dependencies:
+  - python=3.8
+  - numpy=1.21.*
+  - pandas=1.1.*
+  - flask
+  - gunicorn
+  - transformers==4.20.*
+  - pip==22.3.*
+  - pip:
+      - azureml-mlflow==1.47.0
+      - tensorflow==2.9
+      - opencensus-ext-azure
+      - azureml-inference-server-http

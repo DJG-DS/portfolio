@@ -1,0 +1,55 @@
+[
+
+    {
+
+        "id": "0",
+
+        "text": "So good that I bought another one. Love the heavy cord and gold connectors. Bass sounds great. I just learned last night how to coil them up. I guess I should read instructions more carefully. But no harm done, still works great!"
+
+    },
+
+    {
+
+        "id": "1",
+
+        "text":"I have used monster cables for years, and with good reason. The lifetime warranty is worth the price alone. Simple fact: cables break, but getting to replace them at no cost is where it's at."
+
+    },
+
+    { 
+        "id": "2", 
+
+        "text": "I am a novice guitar player.  Arrived in 2 days!  Does exactly what it SAYS it'll do...right out of the box!  Correctly tuned this VERY OLD guitar for the first time in YEARS!"
+
+
+    }, 
+
+    {
+        "id": "3",
+
+        "text": "If you are not use to using a large sustaining pedal while playing the piano, it may appear little awkward."
+    },
+
+    {
+        "id": "4",
+
+        "text": "I've been using these cables for more than 4 months and they are holding up pretty well.  For years I used seemingly indestructable guitar cables that were made for me by an electrician friend."
+
+
+    },
+
+    {
+        "id": "5",
+
+        "text": "Very good cable. Well made and it looks great with my Candy Apple Red Tele. The reason I gave it only 4 stars is because it tends not to lay flat on the floor."
+    },
+
+    {
+        "id": "6",
+
+        "text": "UPDATE: 15 July 2013I still really love how these assist in quick tuning, but MAN, are they FLIMSY.All of my other musician friends- who also LOVE this tuner's ability to grab the right pitch- also have employed copious amounts of super glue to re-attach the neck and clip to the body of the tuner."
+    }
+
+
+
+]
