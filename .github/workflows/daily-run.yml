@@ -2,7 +2,7 @@ name: Daily SharePoint Upload
 
 on:
   schedule:
-    - cron: '0 6 * * *'  # Runs daily at 06:00 UTC
+    - cron: '0 8 * * *'  # Runs daily at 8:00 UTC (9am UK time during BST)
   workflow_dispatch:
 
 jobs:
@@ -25,7 +25,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install -r monitoring_data_collection_tool_github_actions/requirements.txt
 
-      - name: Run script
-        run: python run.py
+      - name: Run workflow script
+        run: python monitoring_data_collection_tool_github_actions/run.py
