@@ -7,7 +7,7 @@ from office365.runtime.auth.user_credential import UserCredential
 
 # Paths
 PYTHON_EXECUTABLE = sys.executable
-ROOT_DIR = "."
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 SCRIPTS_DIR = os.path.join(ROOT_DIR, "scripts")
 LOG_FILE = os.path.join(ROOT_DIR, "documentation/logs", "workflow_log.txt")
 CREDENTIALS_FILE = os.path.join(ROOT_DIR, "sharepoint_credentials.txt")
