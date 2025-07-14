@@ -614,7 +614,7 @@ def get_dataset_field():
         pd.DataFrame: Each row represents a dataset/field combination from the JSON spec.
     """
     specification_df = pd.read_csv(
-        r"C:\Users\DanielGodden\Documents\MCHLG\collecting_and_managing_data\monitoring_data_collection_tool\documentation\utils\specification.csv"
+        r"monitoring_data_collection_tool_github_actions\documentation\utils\specification.csv"
     )
     rows = []
     for index, row in specification_df.iterrows():
