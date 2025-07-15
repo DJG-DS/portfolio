@@ -613,8 +613,11 @@ def get_dataset_field():
     Returns:
         pd.DataFrame: Each row represents a dataset/field combination from the JSON spec.
     """
-    specification_df = pd.read_csv(
-        r"monitoring_data_collection_tool_github_actions\documentation\utils\specification.csv"
+    SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+    spec_path = os.path.join(SCRIPT_DIR, "..", "documentation", "utils", "specification.csv")
+    spec_path = os.path.abspath(spec_path)  # Clean it up
+    
+    specification_df = pd.read_csv(spec_path)
     )
     rows = []
     for index, row in specification_df.iterrows():
