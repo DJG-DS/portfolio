@@ -618,7 +618,7 @@ def get_dataset_field():
     spec_path = os.path.abspath(spec_path)  # Clean it up
     
     specification_df = pd.read_csv(spec_path)
-    )
+    
     rows = []
     for index, row in specification_df.iterrows():
         specification_dicts = json.loads(row["json"])
