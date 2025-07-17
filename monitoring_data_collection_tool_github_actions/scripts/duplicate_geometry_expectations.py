@@ -4,12 +4,6 @@ import argparse
 import os
 
 def parse_args():
-    """
-    Parses command-line arguments for specifying the output directory.
-
-    Returns:
-        argparse.Namespace: Contains the output directory path.
-    """
     parser = argparse.ArgumentParser(description="Duplicate geometry checker")
     parser.add_argument(
         "--output-dir",
@@ -20,30 +14,12 @@ def parse_args():
     return parser.parse_args()
 
 def parse_details(val):
-    """
-    Safely parses a stringified dictionary from the 'details' column using `ast.literal_eval`.
-
-    Parameters:
-        val (str): A string containing a dictionary-like structure.
-
-    Returns:
-        dict: Parsed dictionary, or empty dict if parsing fails.
-    """
     try:
         return ast.literal_eval(val)
     except Exception:
         return {}
 
 def extract_stats(details_dict):
-    """
-    Extracts summary statistics from a parsed 'details' dictionary.
-
-    Parameters:
-        details_dict (dict): Parsed dictionary from the 'details' column.
-
-    Returns:
-        pd.Series: Contains actual/expected values and match counts.
-    """
     return pd.Series({
         "actual": details_dict.get("actual"),
         "expected": details_dict.get("expected"),
@@ -54,29 +30,18 @@ def extract_stats(details_dict):
     })
 
 def main(output_dir):
-    """
-    Main function for processing duplicate geometry checks.
-
-    - Downloads expectations with 'duplicate_geometry_check' operation.
-    - Parses match results and enriches them with entity and organisation metadata.
-    - Outputs both detailed and summary CSVs to the specified output directory.
-    """
-
-    # Load expectation records where operation is 'duplicate_geometry_check'
+    # Load expectation records
     url = "https://datasette.planning.data.gov.uk/digital-land/expectation.csv?_stream=on"
     df = pd.read_csv(url)
     df = df[df["operation"] == "duplicate_geometry_check"].copy()
-
-    # Parse the 'details' field into dictionaries
     df["details_parsed"] = df["details"].apply(parse_details)
 
-    # Extract match records (complete and single) from details
+    # Extract matches
     records = []
     for _, row in df.iterrows():
         dataset = row["dataset"]
         operation = row["operation"]
         details = row["details_parsed"]
-
         for match in details.get("complete_matches", []):
             records.append({
                 "dataset": dataset,
@@ -87,7 +52,6 @@ def main(output_dir):
                 "entity_b": match.get("entity_b"),
                 "organisation_entity_b": match.get("organisation_entity_b"),
             })
-
         for match in details.get("single_matches", []):
             records.append({
                 "dataset": dataset,
@@ -98,10 +62,9 @@ def main(output_dir):
                 "entity_b": match.get("entity_b"),
                 "organisation_entity_b": match.get("organisation_entity_b"),
             })
-
     df_matches = pd.DataFrame(records)
 
-    # URLs for entity tables by dataset
+    # Entity URLs and columns
     url_map = {
         "conservation-area": "https://datasette.planning.data.gov.uk/conservation-area/entity.csv?_stream=on",
         "article-4-direction-area": "https://datasette.planning.data.gov.uk/article-4-direction-area/entity.csv?_stream=on",
@@ -109,21 +72,15 @@ def main(output_dir):
         "tree-preservation-zone": "https://datasette.planning.data.gov.uk/tree-preservation-zone/entity.csv?_stream=on",
         "tree": "https://datasette.planning.data.gov.uk/tree/entity.csv?_stream=on",
     }
-
-    # Columns to retain from entity tables
     columns_to_keep = ["entity", "dataset", "end_date", "entry_date", "geometry", "name", "organisation_entity"]
     entity_tables = {}
-
-    # Download and store each dataset's entity table
     for dataset_name, entity_url in url_map.items():
         df_entity = pd.read_csv(entity_url)
         df_entity["dataset"] = dataset_name
         entity_tables[dataset_name] = df_entity[columns_to_keep].copy()
-
-    # Combine all entity tables into one DataFrame
     df_entities = pd.concat(entity_tables.values(), ignore_index=True)
 
-    # Merge metadata for entity_a
+    # Merge entity metadata
     df_matches = df_matches.merge(
         df_entities,
         how="left",
@@ -137,7 +94,6 @@ def main(output_dir):
         "organisation_entity": "entity_a_organisation"
     }).drop(columns=["entity"])
 
-    # Merge metadata for entity_b
     df_matches = df_matches.merge(
         df_entities,
         how="left",
@@ -151,22 +107,13 @@ def main(output_dir):
         "organisation_entity": "entity_b_organisation"
     }).drop(columns=["entity"])
 
-    # Reorder final column layout
-    ordered_cols = [
-        "dataset", "operation", "message",
-        "entity_a", "entity_a_name", "entity_a_organisation", "entity_a_entry_date", "entity_a_end_date", "entity_a_geometry",
-        "entity_b", "entity_b_name", "entity_b_organisation", "entity_b_entry_date", "entity_b_end_date", "entity_b_geometry"
-    ]
-    df_matches = df_matches[ordered_cols]
-
-    # Load organisation lookup table
+    # Load organisation names
     org_url = "https://datasette.planning.data.gov.uk/digital-land/organisation.csv?_stream=on"
     df_org = pd.read_csv(org_url)[["entity", "name"]].rename(columns={
         "entity": "organisation_entity",
         "name": "organisation_name"
     })
 
-    # Add readable name for entity_a_organisation
     df_matches = df_matches.merge(
         df_org,
         how="left",
@@ -174,13 +121,11 @@ def main(output_dir):
         right_on="organisation_entity"
     ).rename(columns={"organisation_name": "entity_a_organisation_name"}).drop(columns=["organisation_entity"])
 
-    # Insert entity_a_organisation_name after entity_a_organisation
     a_cols = df_matches.columns.tolist()
     a_index = a_cols.index("entity_a_organisation") + 1
     a_cols.insert(a_index, a_cols.pop(a_cols.index("entity_a_organisation_name")))
     df_matches = df_matches[a_cols]
 
-    # Add readable name for entity_b_organisation
     df_matches = df_matches.merge(
         df_org,
         how="left",
@@ -188,23 +133,66 @@ def main(output_dir):
         right_on="organisation_entity"
     ).rename(columns={"organisation_name": "entity_b_organisation_name"}).drop(columns=["organisation_entity"])
 
-    # Insert entity_b_organisation_name after entity_b_organisation
     b_cols = df_matches.columns.tolist()
     b_index = b_cols.index("entity_b_organisation") + 1
     b_cols.insert(b_index, b_cols.pop(b_cols.index("entity_b_organisation_name")))
     df_matches = df_matches[b_cols]
 
-    # Save detailed match output
+    # --- Endpoint mapping ---
+    # --- Endpoint mapping (deduplicated per organisation) ---
+    endpoint_url = "https://datasette.planning.data.gov.uk/digital-land/endpoint.csv?_stream=on"
+    df0 = pd.read_csv(endpoint_url)
+    df0 = df0[df0['end_date'].isna()]
+    df_endpoint = df0[["endpoint", "endpoint_url"]].copy()
+
+    source_url = "https://datasette.planning.data.gov.uk/digital-land/source.csv?_stream=on"
+    df1 = pd.read_csv(source_url)
+    df1["organisation_ref"] = df1["organisation"].str.replace(r"^.*?:", "", regex=True).astype(str)
+    df_source = df1[["endpoint", "source", "collection", "organisation_ref"]].copy()
+
+    df2 = pd.read_csv(org_url)
+    df2 = df2[df2['end_date'].isna()]
+    df2["reference"] = df2["reference"].astype(str)
+    df_org_ep = df2[["name", "reference"]].rename(columns={"name": "organisation", "reference": "organisation_ref"})
+
+    # Merge and keep only one endpoint per organisation (first occurrence)
+    df_ep_org = df_endpoint.merge(df_source, on="endpoint", how="left")
+    df_ep_org = df_ep_org.merge(df_org_ep, on="organisation_ref", how="left")
+    df_ep_org = df_ep_org[["endpoint", "organisation"]].dropna()
+    df_ep_org = df_ep_org.drop_duplicates(subset=["organisation"])  # This line prevents row explosion
+
+    # Add entity_a_endpoint (safe one-to-one)
+    df_matches = df_matches.merge(
+        df_ep_org.rename(columns={"endpoint": "entity_a_endpoint", "organisation": "entity_a_organisation_name"}),
+        on="entity_a_organisation_name",
+        how="left"
+    )
+
+    # Add entity_b_endpoint (safe one-to-one)
+    df_matches = df_matches.merge(
+        df_ep_org.rename(columns={"endpoint": "entity_b_endpoint", "organisation": "entity_b_organisation_name"}),
+        on="entity_b_organisation_name",
+        how="left"
+    )
+    
+    # Reorder columns
+    cols = df_matches.columns.tolist()
+    a_ep_index = cols.index("entity_a_organisation_name") + 1
+    cols.insert(a_ep_index, cols.pop(cols.index("entity_a_endpoint")))
+    b_ep_index = cols.index("entity_b_organisation_name") + 1
+    cols.insert(b_ep_index, cols.pop(cols.index("entity_b_endpoint")))
+    df_matches = df_matches[cols]
+
+    # Drop rows where both endpoints are the same
+    df_matches = df_matches[df_matches["entity_a_endpoint"] != df_matches["entity_b_endpoint"]]
+
+    # Save CSVs
     os.makedirs(output_dir, exist_ok=True)
     matches_csv = os.path.join(output_dir, "duplicate_entity_expectation.csv")
     df_matches.to_csv(matches_csv, index=False)
 
-    # Re-parse stats and generate summary view
-    df["details_parsed"] = df["details"].apply(parse_details)
     stats_df = pd.concat([df[["dataset", "severity"]], df["details_parsed"].apply(extract_stats)], axis=1)
     stats_df = stats_df.sort_values(by="complete_match_count", ascending=False).reset_index(drop=True)
-
-    # Save summary CSV
     summary_csv = os.path.join(output_dir, "duplicate_entity_expectation_summary.csv")
     stats_df.drop(columns=["complete_matches", "single_matches"]).to_csv(summary_csv, index=False)
 
