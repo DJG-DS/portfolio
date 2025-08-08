@@ -1,0 +1,151 @@
+assignment_id,industry,sectors,sub_sectors,scale,country
+7242,"[""Travel and Tourism Software"",""Consumer Marketplaces""]","[""Technology & Telecoms"",""Consumer, Retail & Leisure""]","[""Software"",""Consumer Services""]",Large Cap,Sweden
+6740,"[""ERP, HCM, Accounting, and Tax Software"",""Public Sector and Education Software"",""Legal and Professional Services Software""]","[""Technology & Telecoms""]","[""Software""]",Large Cap,United Kingdom
+6149,"[""Financial Data and Analytics""]","[""Business Services""]","[""Data & Information Services""]",Mid Cap,United Kingdom
+6605,"[""Holiday Lets and Holiday Parks""]","[""Consumer, Retail & Leisure""]","[""Leisure and Hospitality""]",Large Cap,United Kingdom
+6626,"[""Holiday Lets and Holiday Parks""]","[""Consumer, Retail & Leisure""]","[""Leisure and Hospitality""]",Large Cap,United Kingdom
+6021,"[""Healthcare Software"",""ERP, HCM, Accounting, and Tax Software""]","[""Technology & Telecoms""]","[""Software""]",Large Cap,United Kingdom
+7080,"[""Systems Integrators"",""Managed Services""]","[""Technology & Telecoms""]","[""IT Services""]",Mid Cap,Netherlands
+6870,"[""Electrical Equipment and Components""]","[""Industrials & Materials""]","[""Industrial Products""]",Large Cap,Belgium
+7168,"[""K-12 Education and Care""]","[""Consumer, Retail & Leisure""]","[""Education and Training""]",Large Cap,United Kingdom
+6104,"[""Market Research"",""Consumer Data and Loyalty"",""Other Information Services""]","[""Business Services""]","[""Data & Information Services""]",Very Large Cap,United Kingdom
+6360,"[""Supply Chain & Transportation Software"",""Industrial and Built Environment Software""]","[""Technology & Telecoms""]","[""Software""]",Very Large Cap,United Kingdom
+6711,"[""Healthcare Software"",""Payments"",""ERP, HCM, Accounting, and Tax Software"",""Public Sector and Education Software""]","[""Financial Services"",""Technology & Telecoms""]","[""Banking"",""Software""]",Large Cap,United Kingdom
+6012,"[""Healthcare Software"",""Healthcare Data and Analytics""]","[""Technology & Telecoms"",""Business Services""]","[""Data & Information Services"",""Software""]",Large Cap,Italy
+6271,"[""Healthcare Software"",""Healthcare Data and Analytics""]","[""Technology & Telecoms"",""Business Services""]","[""Data & Information Services"",""Software""]",Large Cap,Italy
+6098,"[""Consumer Marketplaces""]","[""Consumer, Retail & Leisure""]","[""Consumer Services""]",Large Cap,Italy
+6924,"[""Biotechnology"",""Clinical Trial Services \/ CROs""]","[""Healthcare & Pharmaceuticals""]","[""Pharmaceuticals, Biotech and Pharma Services""]",Very Large Cap,Germany
+6602,"[""Veterinary Services""]","[""Healthcare & Pharmaceuticals""]","[""Patient Services""]",Large Cap,United Kingdom
+6148,"[""Financial Services Software"",""ERP, HCM, Accounting, and Tax Software""]","[""Technology & Telecoms""]","[""Software""]",Large Cap,United States
+6151,"[""Assurance \/ Control"",""Testing and Regulatory Compliance"",""Inspection"",""Certification""]","[""Business Services""]","[""TIC & Compliance""]",Large Cap,United Kingdom
+6119,"[""IT Distributors"",""Value Added Resellers (VARs)""]","[""Technology & Telecoms""]","[""IT Services""]",Mid Cap,Denmark
+5976,"[""Payments"",""Financial Services Software"",""Procurement and Accounts Receivable Software""]","[""Technology & Telecoms"",""Financial Services""]","[""Software"",""Banking""]",Mid Cap,Germany
+7226,"[""Industrial and Built Environment Software"",""Database, Data Management, and Analytics Software""]","[""Technology & Telecoms""]","[""Software""]",Mid Cap,
+6603,"[""K-12 Education and Care""]","[""Consumer, Retail & Leisure""]","[""Education and Training""]",Mid Cap,United Kingdom
+6277,"[""Textiles""]","[""Industrials & Materials""]","[""Chemicals and Materials""]",Mid Cap,United Kingdom
+7035,"[""Wealth Management""]","[""Financial Services""]","[""Asset and Wealth Management""]",Very Large Cap,United Kingdom
+7169,"[""Flavours, Fragrances and Ingredients""]","[""Industrials & Materials""]","[""Chemicals and Materials""]",Mid Cap,France
+5988,"[""Healthcare Data and Analytics"",""Healthcare Software"",""Regtech, GRC, and EHS Software""]","[""Technology & Telecoms"",""Business Services""]","[""Data & Information Services"",""Software""]",Large Cap,United States
+6662,"[""Aircraft Maintenance and Support Services""]","[""Industrials & Materials""]","[""Aerospace and Defence""]",Very Large Cap,
+6077,"[""Database, Data Management, and Analytics Software"",""Other Information Services""]","[""Technology & Telecoms"",""Business Services""]","[""Software"",""Data & Information Services""]",Large Cap,France
+6593,,,,Small Cap,
+6099,"[""Property and Casualty Insurance"",""Insurance Distribution""]","[""Financial Services""]","[""Insurance""]",Large Cap,United Kingdom
+6187,"[""B2B Marketplaces""]","[""Business Services""]","[""Data & Information Services""]",Mid Cap,
+5944,"[""Financial Services Software"",""Enterprise Automation Software""]","[""Technology & Telecoms""]","[""Software""]",Small Cap,United Kingdom
+7048,,,,Small Cap,Luxembourg
+7031,"[""Hygiene and Personal Care"",""Beauty and Skincare""]","[""Consumer, Retail & Leisure""]","[""FMCG""]",Very Large Cap,United States
+6037,"[""Managed Services""]","[""Technology & Telecoms""]","[""IT Services""]",Large Cap,France
+6806,"[""Industrial Components and Consumables""]","[""Industrials & Materials""]","[""Industrial Products""]",Mid Cap,
+6553,"[""Managed Services""]","[""Technology & Telecoms""]","[""IT Services""]",Mid Cap,France
+6292,"[""Supply Chain & Transportation Software"",""Industrial and Built Environment Software""]","[""Technology & Telecoms""]","[""Software""]",Small Cap,
+6164,"[""Other BPO""]","[""Business Services""]","[""Professional Services and BPO""]",Large Cap,Belgium
+6025,"[""Tech & IT Infrastructure Software""]","[""Technology & Telecoms""]","[""Software""]",Mid Cap,Belgium
+6926,"[""Engineering and Industrial Consulting""]","[""Business Services""]","[""Professional Services and BPO""]",Mid Cap,Denmark
+6174,"[""Regtech, GRC, and EHS Software""]","[""Technology & Telecoms""]","[""Software""]",Mid Cap,Germany
+6192,"[""Consulting"",""Managed Services""]","[""Business Services"",""Technology & Telecoms""]","[""Professional Services and BPO"",""IT Services""]",Large Cap,Ireland
+7042,"[""Marine Services""]","[""Business Services""]","[""Transportation and Freight Services""]",Large Cap,Norway
+6871,"[""Installation, Maintenance and Technical Services""]","[""Business Services""]","[""Facilities Management""]",Mid Cap,Sweden
+6798,"[""Financial Services Software"",""Marketing and Content Management Software"",""Regtech, GRC, and EHS Software"",""Managed Services"",""Consulting""]","[""Business Services"",""Technology & Telecoms""]","[""IT Services"",""Professional Services and BPO"",""Software""]",Mid Cap,Germany
+6599,"[""Regtech, GRC, and EHS Software"",""Financial Services Software""]","[""Technology & Telecoms""]","[""Software""]",Mid Cap,Germany
+6997,"[""Industrial and Built Environment Software""]","[""Technology & Telecoms""]","[""Software""]",Mid Cap,Denmark
+7237,"[""Other Information Services"",""Legal and Regulatory Data""]","[""Business Services""]","[""Data & Information Services""]",Mid Cap,France
+6049,"[""Cybersecurity Software""]","[""Technology & Telecoms""]","[""Software""]",Small Cap,
+6268,"[""Managed Services""]","[""Technology & Telecoms""]","[""IT Services""]",Mid Cap,Finland
+6106,"[""Engineering and Construction""]","[""Business Services""]","[""Industrial Services""]",Mid Cap,Ireland
+6219,"[""eCommerce"",""Consumer Marketplaces""]","[""Consumer, Retail & Leisure""]","[""Retail"",""Consumer Services""]",Large Cap,Netherlands
+6188,"[""Industrial and Built Environment Software"",""ERP, HCM, Accounting, and Tax Software"",""Supply Chain & Transportation Software""]","[""Technology & Telecoms""]","[""Software""]",Large Cap,United Kingdom
+6745,"[""Database, Data Management, and Analytics Software"",""Financial Services Software""]","[""Technology & Telecoms""]","[""Software""]",Mid Cap,
+6050,"[""Cybersecurity Software""]","[""Technology & Telecoms""]","[""Software""]",Mid Cap,Sweden
+6377,"[""Supply Chain & Transportation Software""]","[""Technology & Telecoms""]","[""Software""]",Large Cap,Austria
+7017,,,,Small Cap,
+6941,"[""Healthcare Software""]","[""Technology & Telecoms""]","[""Software""]",Small Cap,France
+6053,"[""Financial Services Software"",""Regtech, GRC, and EHS Software"",""ERP, HCM, Accounting, and Tax Software""]","[""Technology & Telecoms""]","[""Software""]",Very Large Cap,United Kingdom
+7013,"[""Financial Services Software""]","[""Technology & Telecoms""]","[""Software""]",Mid Cap,
+6805,"[""CRM and Customer Experience (CX) Software"",""Communication Software""]","[""Technology & Telecoms""]","[""Software""]",Mid Cap,United Kingdom
+6311,"[""Installation, Maintenance and Technical Services"",""Energy Management Services""]","[""Business Services""]","[""Facilities Management"",""Industrial Services""]",Mid Cap,United Kingdom
+6868,"[""Business Productivity Software"",""Cybersecurity Software""]","[""Technology & Telecoms""]","[""Software""]",Small Cap,Finland
+6222,"[""Procurement and Accounts Receivable Software"",""Payments""]","[""Technology & Telecoms"",""Financial Services""]","[""Software"",""Banking""]",Large Cap,United States
+5986,"[""CRM and Customer Experience (CX) Software"",""Marketing and Content Management Software""]","[""Technology & Telecoms""]","[""Software""]",Mid Cap,Belgium
+6937,"[""Hygiene and Personal Care"",""Pharmaceuticals"",""Clinical Trial Services \/ CROs""]","[""Healthcare & Pharmaceuticals""]","[""FMCG""]",Very Large Cap,France
+6189,"[""ERP, HCM, Accounting, and Tax Software""]","[""Technology & Telecoms""]","[""Software""]",Large Cap,United Kingdom
+6061,"[""Consumer and SME Connectivity""]","[""Technology & Telecoms""]","[""Telecoms""]",Large Cap,
+6856,"[""Consulting"",""Application Development"",""Systems Integrators"",""Testing and Regulatory Compliance"",""Managed Services"",""Healthcare Software""]","[""Business Services"",""Technology & Telecoms""]","[""Professional Services and BPO"",""Software"",""IT Services""]",Very Large Cap,Finland
+6216,"[""Financial Services Software""]","[""Technology & Telecoms""]","[""Software""]",Large Cap,Australia
+6116,"[""Supply Chain & Transportation Software""]","[""Technology & Telecoms""]","[""Software""]",Large Cap,Finland
+6889,"[""Tools, Instruments and Controls""]","[""Industrials & Materials""]","[""Industrial Products""]",Mid Cap,United Kingdom
+6878,"[""Wealth Management""]","[""Financial Services""]","[""Asset and Wealth Management""]",Mid Cap,
+6661,"[""CRM and Customer Experience (CX) Software"",""Marketing and Content Management Software""]","[""Technology & Telecoms""]","[""Software""]",Large Cap,United States
+6024,"[""Marketing and Content Management Software""]","[""Technology & Telecoms""]","[""Software""]",Small Cap,Netherlands
+5950,"[""Newspapers and Magazines"",""Other Information Services""]","[""Business Services"",""Media & Entertainment""]","[""B2C Content"",""Data & Information Services""]",Mid Cap,United States
+6954,"[""Nutraceuticals"",""Non-Alcoholic Drinks""]","[""Healthcare & Pharmaceuticals"",""Consumer, Retail & Leisure""]","[""Pharmaceuticals, Biotech and Pharma Services"",""Food and Beverage""]",Large Cap,Sweden
+6108,"[""ERP, HCM, Accounting, and Tax Software"",""Public Sector and Education Software""]","[""Technology & Telecoms""]","[""Software""]",Very Large Cap,United States
+6376,"[""Cybersecurity Software""]","[""Technology & Telecoms""]","[""Software""]",Mid Cap,Germany
+6221,"[""Financial Services Software""]","[""Technology & Telecoms""]","[""Software""]",Mid Cap,United States
+6228,"[""Cybersecurity Software""]","[""Technology & Telecoms""]","[""Software""]",Large Cap,United States
+6013,"[""Cybersecurity Software"",""Communication Software""]","[""Technology & Telecoms""]","[""Software""]",Mid Cap,United States
+6196,"[""Healthcare Software"",""Healthcare Data and Analytics""]","[""Technology & Telecoms"",""Business Services""]","[""Data & Information Services"",""Software""]",Small Cap,Denmark
+6514,"[""Managed Services"",""Enterprise Automation Software""]","[""Technology & Telecoms""]","[""Software"",""IT Services""]",Small Cap,United Kingdom
+7056,"[""Market Research"",""Other Information Services""]","[""Business Services""]","[""Data & Information Services""]",Large Cap,United Kingdom
+6726,"[""Enterprise Automation Software"",""Legal and Professional Services Software""]","[""Technology & Telecoms""]","[""Software""]",Small Cap,United States
+6794,"[""Financial Services Software"",""Cybersecurity Software""]","[""Technology & Telecoms""]","[""Software""]",Mid Cap,United States
+7222,"[""Healthcare Software""]","[""Technology & Telecoms""]","[""Software""]",Small Cap,United States
+6057,"[""Enterprise and Wholesale Connectivity""]","[""Technology & Telecoms""]","[""Telecoms""]",Large Cap,United States
+6617,"[""Healthcare Software"",""Healthcare Data and Analytics""]","[""Technology & Telecoms"",""Business Services""]","[""Data & Information Services"",""Software""]",Mid Cap,United States
+6724,"[""Financial Services Software"",""Managed Services""]","[""Technology & Telecoms""]","[""IT Services"",""Software""]",Mid Cap,United States
+6939,"[""Supply Chain & Transportation Software""]","[""Technology & Telecoms""]","[""Software""]",Mid Cap,United States
+6227,"[""Supply Chain & Transportation Software""]","[""Technology & Telecoms""]","[""Software""]",Mid Cap,United States
+6199,"[""Healthcare Software"",""Healthcare Data and Analytics""]","[""Technology & Telecoms"",""Business Services""]","[""Data & Information Services"",""Software""]",Mid Cap,United States
+6816,"[""Financial Services Software""]","[""Technology & Telecoms""]","[""Software""]",Large Cap,United States
+6285,"[""Fund Administration""]","[""Business Services""]","[""Professional Services and BPO""]",Mid Cap,United States
+6282,"[""Healthcare Software""]","[""Technology & Telecoms""]","[""Software""]",Mid Cap,
+7016,"[""Payments"",""Public Sector and Education Software""]","[""Financial Services"",""Technology & Telecoms""]","[""Software"",""Banking""]",Mid Cap,United States
+6056,"[""Regtech, GRC, and EHS Software"",""Financial Data and Analytics"",""Financial Services Software"",""Legal and Regulatory Data""]","[""Business Services"",""Technology & Telecoms""]","[""Software"",""Data & Information Services""]",Very Large Cap,United States
+6208,,"[""Technology & Telecoms""]","[""IT Services""]",TBC,
+6105,"[""Healthcare Software"",""Healthcare Data and Analytics""]","[""Technology & Telecoms"",""Business Services""]","[""Software"",""Data & Information Services""]",Large Cap,United States
+6314,"[""Cybersecurity Software""]","[""Technology & Telecoms""]","[""Software""]",Large Cap,United States
+6218,"[""Financial Services Software"",""Business Productivity Software""]","[""Technology & Telecoms""]","[""Software""]",Large Cap,United States
+6163,"[""Payments"",""Procurement and Accounts Receivable Software"",""ERP, HCM, Accounting, and Tax Software"",""Financial Services Software""]","[""Technology & Telecoms"",""Financial Services""]","[""Software"",""Banking""]",Large Cap,United States
+6081,"[""B2B Publishing"",""Events and Exhibitions""]","[""Media & Entertainment""]","[""Sports and Live Entertainment"",""B2B Content""]",Large Cap,
+6921,"[""Industrial and Built Environment Software"",""Public Sector and Education Software""]","[""Technology & Telecoms""]","[""Software""]",Large Cap,United States
+6113,"[""Financial Services Software""]","[""Technology & Telecoms""]","[""Software""]",Large Cap,Netherlands
+6685,"[""Financial Services Software""]","[""Technology & Telecoms""]","[""Software""]",Mid Cap,United Kingdom
+6045,"[""Financial Services Software""]","[""Technology & Telecoms""]","[""Software""]",Mid Cap,Ireland
+6742,"[""Transportation Asset Leasing""]","[""Business Services""]","[""Asset Leasing and Rental Services""]",Mid Cap,Switzerland
+6019,"[""Consumer Data and Loyalty""]","[""Business Services""]","[""Data & Information Services""]",Mid Cap,Germany
+6020,"[""Business Productivity Software""]","[""Technology & Telecoms""]","[""Software""]",Large Cap,Germany
+6223,"[""Financial Services Software""]","[""Technology & Telecoms""]","[""Software""]",Mid Cap,United Kingdom
+7007,,,,Small Cap,Germany
+6047,"[""Consumer and SME Connectivity""]","[""Technology & Telecoms""]","[""Telecoms""]",Very Large Cap,Italy
+6306,"[""Database, Data Management, and Analytics Software""]","[""Technology & Telecoms""]","[""Software""]",Small Cap,Sweden
+6093,"[""Diagnostic Equipment""]","[""Healthcare & Pharmaceuticals""]","[""Devices and Equipment""]",Large Cap,Denmark
+7055,"[""Fund Administration""]","[""Business Services""]","[""Professional Services and BPO""]",Mid Cap,United States
+6873,"[""Discount Retail""]","[""Consumer, Retail & Leisure""]","[""Retail""]",Large Cap,Italy
+6190,"[""Systems Integrators"",""Managed Services""]","[""Technology & Telecoms""]","[""IT Services""]",Large Cap,Denmark
+6315,"[""Legal and Professional Services Software"",""Business Productivity Software""]","[""Technology & Telecoms""]","[""Software""]",Mid Cap,Finland
+6214,"[""Building Products & Materials""]","[""Industrials & Materials""]","[""Industrial Products""]",Large Cap,
+7254,"[""Financial Services Software""]","[""Technology & Telecoms""]","[""Software""]",Large Cap,Israel
+6250,"[""Industrial and Built Environment Software""]","[""Technology & Telecoms""]","[""Software""]",Mid Cap,United Kingdom
+6916,"[""Industrial Components and Consumables""]","[""Industrials & Materials""]","[""Industrial Products""]",Mid Cap,Italy
+7164,"[""Utilities and Telecoms Software""]","[""Technology & Telecoms""]","[""Software""]",Mid Cap,Belgium
+6604,"[""Events and Exhibitions"",""Consumer Marketplaces""]","[""Media & Entertainment""]","[""Sports and Live Entertainment""]",Large Cap,Australia
+6850,"[""Financial Data and Analytics""]","[""Business Services""]","[""Data & Information Services""]",Mid Cap,Belgium
+6799,"[""Regtech, GRC, and EHS Software""]","[""Technology & Telecoms""]","[""Software""]",Mid Cap,
+7268,"[""Hygiene and Personal Care""]","[""Consumer, Retail & Leisure""]","[""FMCG""]",Small Cap,
+6596,,,,Small Cap,
+6872,"[""Speciality Retail""]","[""Consumer, Retail & Leisure""]","[""Retail""]",Large Cap,Netherlands
+7027,"[""Hygiene and Personal Care"",""Flavours, Fragrances and Ingredients"",""Contract Manufacturing Services""]","[""Consumer, Retail & Leisure"",""Industrials & Materials"",""Business Services""]","[""FMCG"",""Chemicals and Materials"",""Industrial Services""]",Mid Cap,Switzerland
+6725,"[""Installation, Maintenance and Technical Services""]","[""Business Services""]","[""Facilities Management""]",Mid Cap,Sweden
+6739,"[""Leisure Products"",""Therapeutic Devices""]","[""Healthcare & Pharmaceuticals""]","[""Devices and Equipment""]",Mid Cap,Netherlands
+6750,"[""Textiles""]","[""Industrials & Materials""]","[""Chemicals and Materials""]",Mid Cap,Netherlands
+6761,"[""Building Products & Materials"",""Industrial Safety Equipment"",""Industrial Machinery and Equipment""]","[""Industrials & Materials""]","[""Industrial Products"",""Capital Equipment""]",Mid Cap,
+6764,,,,TBC,Switzerland
+6780,"[""Financial Services Software""]","[""Technology & Telecoms""]","[""Software""]",Small Cap,United States
+6855,"[""Installation, Maintenance and Technical Services""]","[""Business Services""]","[""Facilities Management""]",Small Cap,United Kingdom
+6891,,,,Small Cap,
+6058,"[""Nutraceuticals"",""OTC Healthcare Products""]","[""Healthcare & Pharmaceuticals""]","[""Pharmaceuticals, Biotech and Pharma Services""]",Mid Cap,
+7039,,,,Small Cap,
+6969,"[""Hygiene and Personal Care""]","[""Consumer, Retail & Leisure""]","[""FMCG""]",Mid Cap,
+7012,,,,TBC,
+7064,,,,TBC,
+7020,,,,TBC,
+7212,,"[""Financial Services""]","[""Insurance""]",TBC,United Kingdom
