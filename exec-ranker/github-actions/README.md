@@ -2,7 +2,7 @@
 
 This repository contains a daily retraining pipeline for a LightGBM Ranker that matches executives to business opportunities. It also provides a FastAPI service to serve predictions.
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 nexus/
@@ -17,13 +17,13 @@ nexus/
   README.md
 ```
 
-## 🔁 GitHub Actions
+## GitHub Actions
 
 Runs daily at 6 AM UTC. Trains the model and logs Precision@5 to `logs/precision_log.csv`. Uploads model as artifact.
 
 You can also trigger manually via the Actions tab.
 
-## 🚀 FastAPI Prediction
+## FastAPI Prediction
 
 Start the server:
 
@@ -51,14 +51,14 @@ http://localhost:8000/predict/
 
 Returns ranked top 10 executives.
 
-## 📦 Setup
+## Setup
 
 ```bash
 pip install -r requirements.txt
 python github-actions/ranker.py
 ```
 
-## 📝 Logs
+## Logs
 
 Precision@5 is recorded daily in:
 
@@ -66,7 +66,7 @@ Precision@5 is recorded daily in:
 logs/precision_log.csv
 ```
 
-## 📤 Output
+## Output
 
 Model saved as:
 
