@@ -10,8 +10,9 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      SHAREPOINT_USERNAME: ${{ secrets.SHAREPOINT_USERNAME }}
-      SHAREPOINT_PASSWORD: ${{ secrets.SHAREPOINT_PASSWORD }}
+      SP_CLIENT_ID: ${{ secrets.SP_CLIENT_ID }}
+      SP_CLIENT_SECRET: ${{ secrets.SP_CLIENT_SECRET }}
+      SP_SITE_URL: ${{ secrets.SP_SITE_URL }}
 
     steps:
       - name: Checkout repository
