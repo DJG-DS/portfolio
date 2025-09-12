@@ -2,58 +2,44 @@ import subprocess
 import os
 import datetime
 import sys
+import smtplib
+import mimetypes
+import socket
+import io
+import zipfile
+from email.message import EmailMessage
+from email.utils import formatdate, make_msgid
 from pathlib import Path
 
-from office365.sharepoint.client_context import ClientContext
-from office365.runtime.auth.client_credential import ClientCredential
-
-# -------------------------------------------------------------------
-# Paths (resolved relative to this file)
-# -------------------------------------------------------------------
+# Paths
 PYTHON_EXECUTABLE = sys.executable
-ROOT_DIR = Path(__file__).resolve().parent  # monitoring_data_collection_tool_github_actions/
-SCRIPTS_DIR = ROOT_DIR / "scripts"
-LOG_FILE = ROOT_DIR / "documentation" / "logs" / "workflow_log.txt"
+ROOT_DIR = "."
+SCRIPTS_DIR = os.path.join(ROOT_DIR, "scripts")
+LOG_FILE = os.path.join(ROOT_DIR, "documentation/logs", "workflow_log.txt")
+DEFAULT_OUTPUT_DIR = os.path.join(ROOT_DIR, "outputs")
+DOC_OUTPUT_PATH = os.path.join(ROOT_DIR, "documentation", "output_dir.txt")
 
-DOC_OUTPUT_PATH = ROOT_DIR / "documentation" / "output_dir.txt"
-DEFAULT_OUTPUT_DIR = ROOT_DIR / "outputs"
-
-# -------------------------------------------------------------------
-# SharePoint / Entra app-only auth (set these via GitHub Secrets)
-# -------------------------------------------------------------------
-SP_CLIENT_ID = os.environ.get("SP_CLIENT_ID", "")
-SP_CLIENT_SECRET = os.environ.get("SP_CLIENT_SECRET", "")
-SP_SITE_URL = os.environ.get("SP_SITE_URL", "")  # e.g. https://mhclg.sharepoint.com/sites/DigitalPlanning
-
-
-def _resolve_output_dir() -> str:
-    """Get OUTPUT_DIR from documentation/output_dir.txt if present, else default."""
-    try:
-        if DOC_OUTPUT_PATH.is_file():
-            with open(DOC_OUTPUT_PATH, "r", encoding="utf-8") as f:
-                custom_output_dir = f.read().strip()
-                return custom_output_dir if custom_output_dir else str(DEFAULT_OUTPUT_DIR)
-        return str(DEFAULT_OUTPUT_DIR)
-    except Exception as e:
-        print(f"Warning: Failed to read output_dir.txt. Using default. Error: {e}")
-        return str(DEFAULT_OUTPUT_DIR)
-
-
-OUTPUT_DIR = _resolve_output_dir()
+try:
+    if os.path.isfile(DOC_OUTPUT_PATH):
+        with open(DOC_OUTPUT_PATH, "r", encoding="utf-8") as f:
+            custom_output_dir = f.read().strip()
+            OUTPUT_DIR = custom_output_dir if custom_output_dir else DEFAULT_OUTPUT_DIR
+    else:
+        OUTPUT_DIR = DEFAULT_OUTPUT_DIR
+except Exception:
+    OUTPUT_DIR = DEFAULT_OUTPUT_DIR
 
 
 def log(message: str) -> None:
-    """Logs a timestamped message to both the console and a log file."""
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     full_msg = f"[{timestamp}] {message}"
     print(full_msg)
-    LOG_FILE.parent.mkdir(parents=True, exist_ok=True)
+    os.makedirs(os.path.dirname(LOG_FILE), exist_ok=True)
     with open(LOG_FILE, "a", encoding="utf-8") as f:
         f.write(full_msg + "\n")
 
 
 def run_script(script_path: str, output_dir: str) -> None:
-    """Executes a Python script with an output directory argument and logs the result."""
     try:
         subprocess.run(
             [PYTHON_EXECUTABLE, script_path, "--output-dir", output_dir],
@@ -64,100 +50,126 @@ def run_script(script_path: str, output_dir: str) -> None:
         log(f"SUCCESS: {script_path}")
     except subprocess.CalledProcessError as e:
         log(f"FAIL: {script_path}")
-        if e.stdout:
-            log(f"Stdout:\n{e.stdout.strip()}")
-        if e.stderr:
-            log(f"Stderr:\n{e.stderr.strip()}")
+        log(f"Stdout:\n{(e.stdout or '').strip()}")
+        log(f"Stderr:\n{(e.stderr or '').strip()}")
     except Exception as e:
         log(f"ERROR: {script_path} - {str(e)}")
 
 
-def _get_sharepoint_ctx() -> ClientContext:
-    """Returns a SharePoint ClientContext using Entra ID client credentials."""
-    if not (SP_CLIENT_ID and SP_CLIENT_SECRET and SP_SITE_URL):
-        raise Exception(
-            "Missing one or more required env vars: SP_CLIENT_ID, SP_CLIENT_SECRET, SP_SITE_URL"
-        )
-    cred = ClientCredential(SP_CLIENT_ID, SP_CLIENT_SECRET)
-    return ClientContext(SP_SITE_URL).with_credentials(cred)
+def discover_csvs(output_dir: str) -> list[Path]:
+    p = Path(output_dir)
+    if not p.exists():
+        return []
+    return sorted(p.glob("*.csv"))
 
 
-def upload_all_outputs_to_sharepoint(output_dir: str) -> None:
-    """
-    Uploads all CSV files from output_dir to SharePoint using app-only auth.
+def total_size(paths: list[Path]) -> int:
+    return sum(f.stat().st_size for f in paths if f.exists())
 
-    Actions:
-      1) Auth with client credentials (no interactive/MFA required).
-      2) Ensure base folder path exists:
-         'Shared Documents/20. Data Management/Reporting/Data files'
-      3) Ensure archive path exists:
-         '.../Data files/old files/{YYYY-MM-DD}'
-      4) Upload each CSV to both base and archive folders.
-    """
-    today_str = datetime.date.today().strftime("%Y-%m-%d")
-    parent_rel = "Shared Documents/20. Data Management/Reporting/Data files"
-    archive_parent_rel = f"{parent_rel}/old files"
-    dated_rel = f"{archive_parent_rel}/{today_str}"
 
-    ctx = _get_sharepoint_ctx()
+def build_zip_in_memory(files: list[Path], zip_name: str = "outputs.zip") -> tuple[str, bytes]:
+    mem = io.BytesIO()
+    with zipfile.ZipFile(mem, mode="w", compression=zipfile.ZIP_DEFLATED) as zf:
+        for f in files:
+            zf.write(f, arcname=f.name)
+    mem.seek(0)
+    return zip_name, mem.read()
 
-    try:
-        base_folder = ctx.web.ensure_folder_path(parent_rel).execute_query().value
-        ctx.web.ensure_folder_path(archive_parent_rel).execute_query()
-        archive_folder = ctx.web.ensure_folder_path(dated_rel).execute_query().value
-        log(f"Archive folder ready: {dated_rel}")
-    except Exception as e:
-        raise Exception(
-            f"Cannot access or create required folders.\n"
-            f"Base: {parent_rel}\nArchive: {dated_rel}\nError: {e}"
+
+def attach_file(msg: EmailMessage, file_path: Path) -> None:
+    ctype, encoding = mimetypes.guess_type(file_path.name)
+    if ctype is None or encoding is not None:
+        ctype = "application/octet-stream"
+    maintype, subtype = ctype.split("/", 1)
+    with open(file_path, "rb") as fp:
+        msg.add_attachment(
+            fp.read(),
+            maintype=maintype,
+            subtype=subtype,
+            filename=file_path.name,
         )
 
-    files = [p for p in Path(output_dir).glob("*.csv")]
-    if not files:
-        log(f"No CSV files found in '{output_dir}'. Nothing to upload.")
+
+def send_email_with_outputs(output_dir: str) -> None:
+    # 🔑 CHANGE THESE:
+    SMTP_HOST = "smtp.office365.com"
+    SMTP_PORT = 587
+    SMTP_USERNAME = "your.email@domain.com"      # <-- your email
+    SMTP_PASSWORD = "your-password-here"         # <-- your password / app password
+    FROM_ADDR = SMTP_USERNAME         
+    TO_ADDRS = ["recipient@domain.com"]          # <-- who gets it
+
+    SUBJECT_PREFIX = "[ODP Outputs]"
+    BODY_TEXT = "Automated export attached.\n\nThis email was sent by the workflow script."
+    ZIP_THRESHOLD_MB = 15.0
+    MAX_ATTACHMENTS = 15
+
+    csv_files = discover_csvs(output_dir)
+    if not csv_files:
+        log(f"No CSV files found to email in: {output_dir}")
         return
 
-    for p in files:
-        file_name = p.name
-        log(f"Uploading '{file_name}' to base and archive...")
-        try:
-            data = p.read_bytes()
-            base_folder.upload_file(file_name, data).execute_query()
-            archive_folder.upload_file(file_name, data).execute_query()
-            log(f"Uploaded: {file_name}")
-        except Exception as e:
-            log(f"Failed to upload '{file_name}': {e}")
+    total_bytes = total_size(csv_files)
+    must_zip = total_bytes > ZIP_THRESHOLD_MB * 1024 * 1024 or len(csv_files) > MAX_ATTACHMENTS
 
-    log(f"All files uploaded to base and archived in 'old files/{today_str}'.")
+    today_str = datetime.date.today().strftime("%Y-%m-%d")
+    host = socket.gethostname()
+    subject = f"{SUBJECT_PREFIX} {today_str}"
+
+    msg = EmailMessage()
+    msg["Subject"] = subject
+    msg["From"] = FROM_ADDR
+    msg["To"] = ", ".join(TO_ADDRS)
+    msg["Date"] = formatdate(localtime=True)
+    msg["Message-ID"] = make_msgid()
+    body = f"{BODY_TEXT}\n\nMachine: {host}\nOutput directory: {os.path.abspath(output_dir)}"
+    msg.set_content(body)
+
+    if must_zip:
+        zip_name, zip_bytes = build_zip_in_memory(csv_files, f"outputs_{today_str}.zip")
+        msg.add_attachment(zip_bytes, maintype="application", subtype="zip", filename=zip_name)
+        log(
+            f"Attaching ZIP '{zip_name}' with {len(csv_files)} files "
+            f"(~{total_bytes/1_048_576:.2f} MB) due to size/count threshold."
+        )
+    else:
+        for f in csv_files:
+            attach_file(msg, f)
+        log(f"Attaching {len(csv_files)} CSV file(s) (~{total_bytes/1_048_576:.2f} MB).")
+
+    try:
+        with smtplib.SMTP(SMTP_HOST, SMTP_PORT, timeout=60) as server:
+            server.starttls()
+            server.login(SMTP_USERNAME, SMTP_PASSWORD)
+            server.send_message(msg, from_addr=FROM_ADDR, to_addrs=TO_ADDRS)
+        log(f"Email sent to: {', '.join(TO_ADDRS)}")
+    except Exception as e:
+        log(f"Failed to send email: {e}")
+        raise
 
 
 def main() -> None:
-    """
-    Executes the full data processing workflow:
-      - Run each script in ./scripts (excluding those starting with '_')
-      - Upload outputs (CSVs) to SharePoint
-    """
     log("Starting workflow...")
 
-    if not SCRIPTS_DIR.exists():
-        log(f"Scripts directory not found, skipping script execution: {SCRIPTS_DIR}")
-    else:
-        py_files = sorted(
-            f.name for f in SCRIPTS_DIR.iterdir()
-            if f.is_file() and f.name.endswith(".py") and not f.name.startswith("_")
-        )
-        if not py_files:
-            log("No Python scripts found in scripts directory.")
-        else:
-            for py_file in py_files:
-                full_path = str(SCRIPTS_DIR / py_file)
-                log(f"Running: {py_file}")
-                run_script(full_path, OUTPUT_DIR)
+    if not os.path.exists(SCRIPTS_DIR):
+        log(f"Scripts directory not found: {SCRIPTS_DIR}")
+        return
 
-    Path(OUTPUT_DIR).mkdir(parents=True, exist_ok=True)
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-    log("Uploading outputs to SharePoint...")
-    upload_all_outputs_to_sharepoint(OUTPUT_DIR)
+    py_files = sorted(f for f in os.listdir(SCRIPTS_DIR) if f.endswith(".py") and not f.startswith("_"))
+
+    if not py_files:
+        log("No Python scripts found in scripts directory.")
+        return
+
+    for py_file in py_files:
+        full_path = os.path.join(SCRIPTS_DIR, py_file)
+        log(f"Running: {py_file}")
+        run_script(full_path, OUTPUT_DIR)
+
+    log("All scripts complete. Emailing outputs...")
+    send_email_with_outputs(OUTPUT_DIR)
     log("Workflow complete.")
 
 
